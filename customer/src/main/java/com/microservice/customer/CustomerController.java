@@ -2,17 +2,24 @@ package com.microservice.customer;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Iterator;
 
 @Slf4j
 @RestController
-@RequestMapping("api/v1/customer")
+@RequestMapping("customer")
 public record CustomerController(CustomerService customerService) {
 
-    public void registerCustomer(CustomerRequest customerRequest) {
-
+    @PostMapping("/saveme")
+    public void registerCustomer(@RequestBody  CustomerRequest customerRequest) {
         log.info("new Customer ",customerRequest);
+        customerService.registerCustomer(customerRequest);
+
+    }
+    @GetMapping("/get")
+    public Iterator<Customer> get() {
+        return customerService.get();
 
     }
 
