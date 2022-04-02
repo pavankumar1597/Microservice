@@ -21,7 +21,7 @@ public class CustomerService {
         // store customer in db
         customerRepository.saveAndFlush(customer);
 
-        FruadCheckResponce fraud = restTemplate.getForObject("http://localhost:8084/api/v1/fraud-check/{customerId}", FruadCheckResponce.class, customer.getIds());
+        FruadCheckResponce fraud = restTemplate.getForObject("http://FRUAD/api/v1/fraud-check/{customerId}", FruadCheckResponce.class, customer.getIds());
     if(fraud.isFraudster()){
         new IllegalStateException("he is a fruadster");
 
